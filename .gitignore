@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+
+# 大型サンプル(GitHubに入れない)。取得/変換手順は README.md 参照
+samples/apartment_5m.ply
+samples/bedroom_4m.ply
+samples/boardroom_5m.ply
+samples/lobby_5m.ply
+samples/loft_4m.ply
+samples/livingroom.ply
+samples/rohbau_site02_scan0.ply

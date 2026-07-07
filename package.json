@@ -1,0 +1,21 @@
+{
+  "name": "pointcloud-playground",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host --port 5192 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@loaders.gl/core": "^4.3.3",
+    "@loaders.gl/las": "^4.3.3",
+    "@math.gl/types": "^4.1.0",
+    "three": "^0.170.0",
+    "three-mesh-bvh": "^0.8.3"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>点群3Dプレイグラウンド</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <h1>点群3Dプレイグラウンド</h1>
+
+      <section>
+        <h2>データ読み込み</h2>
+        <button id="btn-open" class="primary">ファイルを開く…</button>
+        <input id="file-input" type="file" multiple
+               accept=".las,.laz,.ply,.pcd,.xyz,.txt,.csv,.pts,.glb,.gltf,.obj,.stl" hidden>
+        <p class="note">対応: LAS / LAZ / PLY / PCD / XYZ / PTS / GLB / OBJ / STL<br>
+          画面へのドラッグ&amp;ドロップでも読み込めます</p>
+        <button id="btn-demo">デモ点群を生成（現場風）</button>
+      </section>
+
+      <section>
+        <h2>3Dアセット追加</h2>
+        <div class="asset-grid">
+          <button data-asset="box">箱 1m</button>
+          <button data-asset="pipe">配管 φ200</button>
+          <button data-asset="sphere">球 φ800</button>
+          <button data-asset="duct">ダクト</button>
+          <button data-asset="stairs">階段</button>
+        </div>
+        <p class="note">ボタンを押したあと、点群上のクリックした場所に配置されます（Escで取消）</p>
+      </section>
+
+      <section>
+        <h2>表示設定</h2>
+        <label>点サイズ
+          <input id="point-size" type="range" min="0.005" max="0.12" step="0.005" value="0.03">
+        </label>
+        <label>点の色
+          <select id="color-mode">
+            <option value="rgb">元の色 (RGB)</option>
+            <option value="height">高さグラデーション</option>
+            <option value="single">単色</option>
+          </select>
+        </label>
+      </section>
+
+      <section>
+        <h2>計測 <button id="btn-clear-measure" class="mini">全消去</button></h2>
+        <div id="measure-list" class="list"></div>
+      </section>
+
+      <section>
+        <h2>オブジェクト</h2>
+        <div id="object-list" class="list"></div>
+        <p id="scene-stats" class="note"></p>
+      </section>
+
+      <p class="note keys">Q:選択 W:移動 E:回転 R:拡縮 M:計測<br>Del:削除 Esc:選択解除</p>
+    </aside>
+
+    <main id="viewport">
+      <div id="toolbar">
+        <button data-mode="select" class="active">選択</button>
+        <button data-mode="translate">移動</button>
+        <button data-mode="rotate">回転</button>
+        <button data-mode="scale">拡縮</button>
+        <button data-mode="measure">計測</button>
+        <label id="collision-label"><input type="checkbox" id="collision-toggle"> 衝突判定</label>
+      </div>
+      <div id="statusbar">
+        <span id="hint"></span>
+        <span id="collision-status"></span>
+      </div>
+      <div id="drop-overlay">ここにファイルをドロップ</div>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
