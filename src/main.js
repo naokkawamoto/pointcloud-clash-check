@@ -374,20 +374,23 @@ window.addEventListener('keydown', (e) => {
 // ---------- 初期シーン（サンプル点群を自動読込） ----------
 setMode('select');
 setHint('サンプル点群を読込中… (rohbau_site02_scan0.ply, 約 55MB)');
-(async () => {
-  try {
-    const url = new URL('samples/rohbau_site02_scan0.ply', import.meta.env.BASE_URL || './').href;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const buf = await res.arrayBuffer();
-    await handleFiles([new File([buf], 'rohbau_site02_scan0.ply')]);
-  } catch (err) {
+
+// Vite が本番ビルド時に置換する BASE_URL を直接文字列連結
+const AUTO_LOAD_URL = (import.meta.env.BASE_URL || './').replace(/\/?$/, '/') + 'samples/rohbau_site02_scan0.ply';
+console.info('[autoload] fetching:', AUTO_LOAD_URL);
+
+fetch(AUTO_LOAD_URL)
+  .then((res) => {
+    if (!res.ok) throw new Error(`HTTP ${res.status} @ ${AUTO_LOAD_URL}`);
+    return res.arrayBuffer();
+  })
+  .then((buf) => handleFiles([new File([buf], 'rohbau_site02_scan0.ply')]))
+  .catch((err) => {
     console.error('サンプル自動読込失敗:', err);
     setHint('サンプル自動読込に失敗。デモ点群を代わりに表示します');
     addDemo();
     fitCameraToAll();
-  }
-})();
+  });
 
 // ---------- 描画ループ ----------
 renderer.setAnimationLoop(() => {
